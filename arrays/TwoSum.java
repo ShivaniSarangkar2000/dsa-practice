@@ -1,7 +1,3 @@
-// Problem 1: Two Sum
-// Link: https://leetcode.com/problems/two-sum/
-// Difficulty: Easy
-// Date: 18-Apr-2026
 
 import java.util.HashMap;
 import java.util.Arrays;
