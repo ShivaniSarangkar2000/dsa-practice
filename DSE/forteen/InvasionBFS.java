@@ -1,6 +1,6 @@
 package forteen;
 import java.util.*;
-public class GeneralAli {
+public class InvasionBFS {
 
         static class Pair {
             int x, y;
