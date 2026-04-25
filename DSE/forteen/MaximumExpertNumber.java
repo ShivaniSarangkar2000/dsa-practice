@@ -1,56 +1,44 @@
 package forteen;
 
 import java.util.*;
+import java.io.*;
 
-public class MaximumExpertNumber{
-//Its not working
+public class MaximumExpertNumber {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine().trim());
+        int[] A = new int[n];
 
-        public static void main(String[] args) {
-            Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < n; i++) {
+            A[i] = Integer.parseInt(br.readLine().trim());
+        }
 
-            int N = sc.nextInt();
-            int[] A = new int[N];
+        int[] dp = new int[n + 1];
+        // dp[i] = max expert number for first i employees
 
-            for (int i = 0; i < N; i++) {
-                A[i] = sc.nextInt();
-            }
-
-            int[] future = new int[1005];
-            for (int x : A) future[x]++;
-
-            boolean[] present = new boolean[1005];
-
+        for (int i = 0; i < n; i++) {
+            int[] freq = new int[n + 2];
             int mex = 0;
-            int answer = 0;
 
-            for (int i = 0; i < N; i++) {
-                int val = A[i];
-
-                future[val]--;         // remove from future
-                present[val] = true;   // add to current segment
-
-                while (present[mex]) {
+            // Extend window from i down to 0
+            for (int j = i; j >= 0; j--) {
+                int val = A[j];
+                if (val <= n) {
+                    freq[val]++;
+                }
+                // Advance mex pointer
+                while (freq[mex] > 0) {
                     mex++;
                 }
-
-                // check if we should cut
-                boolean canExtend = false;
-
-                for (int j = 0; j < mex; j++) {
-                    if (future[j] > 0) {
-                        canExtend = true;
-                        break;
-                    }
-                }
-
-                if (!canExtend) {
-                    answer += mex;
-
-                    Arrays.fill(present, false);
-                    mex = 0;
+                // dp[j] = best up to index j (exclusive)
+                // window is A[j..i], contributed mex
+                int candidate = dp[j] + mex;
+                if (candidate > dp[i + 1]) {
+                    dp[i + 1] = candidate;
                 }
             }
-
-            System.out.println(answer);
         }
+
+        System.out.println(dp[n]);
     }
+}
