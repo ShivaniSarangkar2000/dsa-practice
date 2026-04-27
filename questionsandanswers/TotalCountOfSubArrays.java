@@ -33,6 +33,7 @@ import java.util.Scanner;
 
 public class TotalCountOfSubArrays {
 
+//Approach 1 - Segment Length Formula
 
     public static long solve(int N, int lo, int hi, int[] a) {
         final long MOD = 1_000_000_007L;
@@ -50,7 +51,23 @@ public class TotalCountOfSubArrays {
 
         return result;
     }
+    /*
+Another approach - Sliding Window Approach
+public static long solve(int N, int lo, int hi, int[] a) {
+        long MOD = 1_000_000_007L;
+        long count = 0;
+        int left = 0;
 
+        for (int right = 0; right < N; right++) {
+            if (a[right] < lo || a[right] > hi) {
+                left = right + 1;
+            }
+            count = (count + (right - left + 1)) % MOD;
+        }
+
+        return count;
+}
+ */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -95,3 +112,5 @@ Case Input 3
 Output
 4
 */
+
+
